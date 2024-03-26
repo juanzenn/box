@@ -22,11 +22,6 @@ export default function RootLayout({
     | "light"
     | undefined;
 
-  console.log(
-    headers().forEach((value) => {
-      console.log(value);
-    })
-  );
   return (
     <html lang="en">
       <body className={clsx(inter.variable)}>
