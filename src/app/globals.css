@@ -5,29 +5,23 @@
 @layer base {
   /* Add your global styles here */
   :root {
-    --primary: #052763;
-    --foreground: #282828;
-    --background: #f9f9f9;
+    --primary: hsl(218, 90%, 20%);
+
+    --foreground: hsl(0, 0%, 16%);
+    --background: hsl(0, 0%, 98%);
+
+    --popover: hsl(0, 0%, 90%);
+    --popover-foreground: hsl(0, 0%, 16%);
   }
 
   .dark {
-    --primary: #1b56bb;
-    --foreground: #f9f9f9;
-    --background: #282828;
-  }
+    --primary: hsl(218, 75%, 42%);
 
-  @media (color-gamut: p3) {
-    :root {
-      --primary: color(display-p3 0.019608 0.152941 0.388235 / 1);
-      --foreground: color(display-p3 0.156863 0.156863 0.156863 / 1);
-      --background: color(display-p3 0.976471 0.976471 0.976471 / 1);
-    }
+    --foreground: hsl(0, 0%, 98%);
+    --background: hsl(0, 0%, 16%);
 
-    .dark {
-      --primary: color(display-p3 0.105882 0.337255 0.733333 / 1);
-      --foreground: color(display-p3 0.976471 0.976471 0.976471 / 1);
-      --background: color(display-p3 0.156863 0.156863 0.156863 / 1);
-    }
+    --popover: hsl(0, 0%, 12%);
+    --popover-foreground: hsl(0, 0%, 98%);
   }
 
   body,

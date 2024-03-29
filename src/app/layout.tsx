@@ -1,8 +1,8 @@
+import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { cookies, headers } from "next/headers";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -17,20 +17,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const currentSavedTheme = cookies().get("theme")?.value as
-    | "dark"
-    | "light"
-    | undefined;
-
   return (
     <html lang="en">
       <body className={clsx(inter.variable)}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" enableSystem={true}>
+          <Navbar />
+
           {children}
         </ThemeProvider>
       </body>
