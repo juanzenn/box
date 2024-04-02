@@ -1,5 +1,7 @@
+import SocialmediaIcons from "@/components/socialmedia";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { SiGithub } from "@icons-pack/react-simple-icons";
 import { readFileSync, readdirSync } from "fs";
 import grayMatter from "gray-matter";
 import { Radio, SquareArrowOutUpRight } from "lucide-react";
@@ -44,6 +46,8 @@ export default function Home() {
               backgroundSize: "cover",
             }}
           ></figure>
+
+          <SocialmediaIcons />
         </div>
       </section>
 
