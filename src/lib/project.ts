@@ -1,13 +1,16 @@
-import { GrayMatterFile } from "gray-matter";
+import { FrontmatterType } from "@/types/mdx.type";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
 
-export function parseProject(project: GrayMatterFile<string>) {
+export function parseProject(
+  project: MDXRemoteSerializeResult<Record<string, unknown>, FrontmatterType>,
+) {
   return {
-    title: project.data.title,
-    description: project.data.description,
-    content: project.content,
-    sourceUrl: project.data.github,
-    liveUrl: project.data.live,
-    slug: project.data.slug,
+    title: project.frontmatter.title,
+    description: project.frontmatter.description,
+    content: project.compiledSource,
+    sourceUrl: project.frontmatter.github,
+    liveUrl: project.frontmatter.live,
+    slug: project.frontmatter.slug,
   };
 }
 

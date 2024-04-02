@@ -98,7 +98,7 @@ function LinkItem({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={clsx(
-          "hover:text-primary/80 group block font-semibold transition-colors",
+          "group block font-semibold transition-colors hover:text-primary/80",
           isActive && "text-primary",
         )}
         href={href}
@@ -109,7 +109,7 @@ function LinkItem({
           <AnimatePresence>
             {(isActive || isHovered) && (
               <motion.figure
-                className="group-hover:bg-primary/80 absolute bottom-0 left-0 h-[2px] w-full bg-primary transition-colors"
+                className="absolute bottom-0 left-0 h-[2px] w-full bg-primary transition-colors group-hover:bg-primary/80"
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 exit={{ width: 0 }}

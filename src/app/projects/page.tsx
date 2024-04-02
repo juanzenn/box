@@ -4,26 +4,12 @@ import ProjectCard, {
   ProjectDescription,
   ProjectTitle,
 } from "@/components/project-card";
-import { PROJECTS_PATH } from "@/constants";
 import { parseProject } from "@/lib/project";
-import { readFileSync, readdirSync } from "fs";
-import grayMatter from "gray-matter";
+import { getAllProjects } from "@/lib/projects.server";
 import React from "react";
 
-type Props = {};
-
-export default function ProjectsPage({}: Props) {
-  const projects = readdirSync(PROJECTS_PATH)
-    .map((filename) => {
-      const source = readFileSync(`${PROJECTS_PATH}/${filename}`, "utf8");
-      const blogData = grayMatter(source);
-
-      return blogData;
-    })
-    .sort(
-      (a, b) =>
-        new Date(a.data.date).getTime() - new Date(b.data.date).getTime(),
-    );
+export default async function ProjectsPage() {
+  let projects = await getAllProjects();
 
   return (
     <main>
@@ -31,17 +17,19 @@ export default function ProjectsPage({}: Props) {
         <h2 className="mb-8 text-4xl font-bold tracking-tight">My Work</h2>
 
         <div className="grid grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.data.slug}
-              footerChildren={<ProjectButton />}
-              project={parseProject(project)}
-            >
-              <ProjectTitle />
-              <ProjectDescription />
-              <ProjectAnchors />
-            </ProjectCard>
-          ))}
+          {projects.map((project) => {
+            return (
+              <ProjectCard
+                key={project.slug}
+                footerChildren={<ProjectButton />}
+                project={project}
+              >
+                <ProjectTitle />
+                <ProjectDescription />
+                <ProjectAnchors />
+              </ProjectCard>
+            );
+          })}
         </div>
       </section>
     </main>

@@ -5,30 +5,10 @@ import ProjectCard, {
   ProjectTitle,
 } from "@/components/project-card";
 import SocialmediaIcons from "@/components/socialmedia";
-import { Button } from "@/components/ui/button";
-import { PROJECTS_BONDARIES, PROJECTS_PATH } from "@/constants";
-import { parseProject } from "@/lib/project";
-import { cn } from "@/lib/utils";
-import { SiGithub } from "@icons-pack/react-simple-icons";
-import { readFileSync, readdirSync } from "fs";
-import grayMatter from "gray-matter";
-import { Radio, SquareArrowOutUpRight } from "lucide-react";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import Link from "next/link";
+import { getAllProjects } from "@/lib/projects.server";
 
-export default function Home() {
-  const projects = readdirSync(PROJECTS_PATH)
-    .map((filename) => {
-      const source = readFileSync(`${PROJECTS_PATH}/${filename}`, "utf8");
-      const blogData = grayMatter(source);
-
-      return blogData;
-    })
-    .slice(...PROJECTS_BONDARIES)
-    .sort(
-      (a, b) =>
-        new Date(a.data.date).getTime() - new Date(b.data.date).getTime(),
-    );
+export default async function Home() {
+  const projects = await getAllProjects();
 
   return (
     <main>
@@ -66,9 +46,9 @@ export default function Home() {
         <div className="grid grid-cols-3">
           {projects.map((project) => (
             <ProjectCard
-              key={project.data.slug}
+              key={project.slug}
               footerChildren={<ProjectButton />}
-              project={parseProject(project)}
+              project={project}
             >
               <ProjectTitle />
               <ProjectDescription />

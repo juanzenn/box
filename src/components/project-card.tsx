@@ -3,9 +3,9 @@
 import { Project } from "@/lib/project";
 import { cn } from "@/lib/utils";
 import { Radio, SquareArrowOutUpRight } from "lucide-react";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import React from "react";
+import Markdown from "react-markdown";
 import { Button } from "./ui/button";
 
 const ProjectCardContext = React.createContext({} as Project);
@@ -68,14 +68,15 @@ function ProjectDescription() {
 
   return (
     <div className="line-clamp-[10] leading-relaxed">
-      <MDXRemote
-        source={description}
+      <Markdown
         components={{
           strong: (props) => (
             <strong className="text-primary">{props.children}</strong>
           ),
         }}
-      />
+      >
+        {description}
+      </Markdown>
     </div>
   );
 }
