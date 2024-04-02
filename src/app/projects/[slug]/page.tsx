@@ -1,3 +1,4 @@
+import { PROJECTS_PATH } from "@/constants";
 import fs from "fs";
 import grayMatter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -9,10 +10,9 @@ type ProjectPageProps = {
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = params;
-  const baseRoute = "public/content/";
 
   try {
-    const source = fs.readFileSync(baseRoute + slug + ".mdx", "utf8");
+    const source = fs.readFileSync(PROJECTS_PATH + slug + ".mdx", "utf8");
     const blogData = grayMatter(source);
 
     return (
