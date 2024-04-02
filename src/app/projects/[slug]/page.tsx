@@ -16,14 +16,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     const blogData = grayMatter(source);
 
     return (
-      <main className="py-14 relative">
+      <main className="container relative py-6">
         <header></header>
 
         <section className="grid grid-cols-3 gap-16">
-          <div className="md:col-span-2 col-span-3 prose dark:prose-invert max-w-none">
-            <MDXRemote source={blogData.content} />;
+          <div className="prose col-span-3 max-w-none dark:prose-invert md:col-span-2">
+            <MDXRemote source={blogData.content} />
           </div>
-          <aside className="hidden md:block sticky top-4 h-fit">Hola!</aside>
+          <aside className="sticky top-4 hidden h-fit md:block">Hola!</aside>
         </section>
       </main>
     );

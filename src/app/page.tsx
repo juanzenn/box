@@ -1,11 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { SquareArrowOutUpRight } from "lucide-react";
+import { readFileSync, readdirSync } from "fs";
+import grayMatter from "gray-matter";
+import { Radio, SquareArrowOutUpRight } from "lucide-react";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 
+const PROJECTS_BONDARIES = [0, 3];
+const PROJECTS_PATH = "public/content";
+
 export default function Home() {
+  const projects = readdirSync(PROJECTS_PATH)
+    .map((filename) => {
+      const source = readFileSync(`${PROJECTS_PATH}/${filename}`, "utf8");
+      const blogData = grayMatter(source);
+
+      return blogData;
+    })
+    .slice(...PROJECTS_BONDARIES);
+
   return (
-    <main className="">
+    <main>
       <section className="container flex">
         <div>
           <h1 className="mb-3 text-[64px] font-extrabold tracking-tight">
@@ -33,43 +48,61 @@ export default function Home() {
       </section>
 
       <section className="container">
-        <h2 className="mb-4 text-4xl font-bold tracking-tight">My Work</h2>
+        <h2 className="mb-8 text-4xl font-bold tracking-tight">My Work</h2>
 
         <div className="grid grid-cols-3">
-          <article
-            className={cn(
-              "bg-card border-primary/20 flex flex-col gap-4 rounded-md border p-4 transition-shadow duration-300",
-              "hover:shadow-primary/10 hover:shadow-md",
-            )}
-          >
-            <h3 className="text-base font-bold">Project 1</h3>
-            <p className="leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque scelerisque facilisis sapien. Aenean vehicula ante
-              eleifend justo laoreet feugiat. Maecenas id mauris nec dui semper
-              rhoncus. Donec eget tortor non tellus feugiat lacinia malesuada in
-              massa. Class aptent taciti sociosqu ad litora torquent per conubia
-              nostra
-            </p>
+          {projects.map((project) => (
+            <article
+              key={project.data.slug}
+              className={cn(
+                "bg-card border-primary/20 flex flex-col gap-4 rounded-md border p-4 transition-shadow duration-300",
+                "hover:shadow-primary/10 hover:shadow-md",
+              )}
+            >
+              <h3 className="text-xl font-bold text-primary">
+                {project.data.slug.replace(/-/g, " ").toUpperCase()}
+              </h3>
+              <div className="line-clamp-[10] leading-relaxed">
+                <MDXRemote
+                  source={project.data.description}
+                  components={{
+                    strong: (props) => (
+                      <strong className="text-primary">{props.children}</strong>
+                    ),
+                  }}
+                />
+              </div>
 
-            <footer className="mt-auto flex flex-col gap-2">
-              <a
-                href="#"
-                className="hover:text-primary/90 mb-6 flex gap-2 text-sm text-primary hover:underline"
-              >
-                Source Code <SquareArrowOutUpRight size={16} />
-              </a>
+              <footer className="mt-auto flex flex-col gap-2">
+                <div className="flex gap-4">
+                  <a
+                    href={project.data.source}
+                    target="_blank"
+                    className="hover:text-primary/90 mb-6 flex gap-2 text-sm text-primary hover:underline"
+                  >
+                    Source Code <SquareArrowOutUpRight size={16} />
+                  </a>
 
-              <Button asChild>
-                <Link
-                  href="#"
-                  className="block rounded-lg bg-primary p-2 text-center font-semibold"
-                >
-                  Case Study
-                </Link>
-              </Button>
-            </footer>
-          </article>
+                  <a
+                    href={project.data.live}
+                    target="_blank"
+                    className="hover:text-primary/90 mb-6 flex gap-2 text-sm text-primary hover:underline"
+                  >
+                    Live <Radio size={16} />
+                  </a>
+                </div>
+
+                <Button asChild>
+                  <Link
+                    href={`/projects/${project.data.slug}`}
+                    className="block rounded-lg bg-primary p-2 text-center font-semibold"
+                  >
+                    Case Study
+                  </Link>
+                </Button>
+              </footer>
+            </article>
+          ))}
         </div>
       </section>
     </main>
