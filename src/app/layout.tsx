@@ -5,7 +5,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: "Fullstack Software Engineer - Juan Alvarez",
@@ -18,9 +22,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={clsx(inter.variable)}>
-        <ThemeProvider attribute="class" enableSystem={true}>
+    <html lang="en" className={clsx(inter.variable)}>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          enableSystem={true}
+          disableTransitionOnChange
+        >
           <Navbar />
 
           {children}

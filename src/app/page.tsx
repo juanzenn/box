@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -17,9 +20,9 @@ export default function Home() {
             into them as an opportunity to learn.
           </p>
         </div>
-        <div className="ml-auto h-[300px] w-[300px] flex-shrink-0 overflow-hidden rounded-lg">
+        <div className="ml-auto h-[300px] w-[300px] flex-shrink-0">
           <figure
-            className="h-full w-full"
+            className="h-full w-full rounded-lg ring-4 ring-primary ring-offset-8 ring-offset-background"
             style={{
               backgroundImage: "url(/profile.jpg)",
               backgroundPosition: "center center",
@@ -30,10 +33,15 @@ export default function Home() {
       </section>
 
       <section className="container">
-        <h2 className="mb-12 text-4xl font-bold tracking-tight">My Work</h2>
+        <h2 className="mb-4 text-4xl font-bold tracking-tight">My Work</h2>
 
         <div className="grid grid-cols-3">
-          <article className="flex flex-col gap-4">
+          <article
+            className={cn(
+              "bg-card border-primary/20 flex flex-col gap-4 rounded-md border p-4 transition-shadow duration-300",
+              "hover:shadow-primary/10 hover:shadow-md",
+            )}
+          >
             <h3 className="text-base font-bold">Project 1</h3>
             <p className="leading-relaxed">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -45,13 +53,21 @@ export default function Home() {
             </p>
 
             <footer className="mt-auto flex flex-col gap-2">
-              <a href="#">Source Code</a>
-              <Link
+              <a
                 href="#"
-                className="block rounded-lg bg-primary p-4 text-center font-semibold text-white hover:-translate-y-1"
+                className="hover:text-primary/90 mb-6 flex gap-2 text-sm text-primary hover:underline"
               >
-                Case Study
-              </Link>
+                Source Code <SquareArrowOutUpRight size={16} />
+              </a>
+
+              <Button asChild>
+                <Link
+                  href="#"
+                  className="block rounded-lg bg-primary p-2 text-center font-semibold"
+                >
+                  Case Study
+                </Link>
+              </Button>
             </footer>
           </article>
         </div>

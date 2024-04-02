@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,13 +27,16 @@ export default function Navbar() {
   }
 
   return (
-    <header className="py-4 mb-12">
+    <header className="mb-12 py-4">
       <nav className="container flex items-center">
-        <Link href="/" className="font-black tracking-tight text-lg">
+        <Link
+          href="/"
+          className="text-2xl font-black tracking-tight hover:text-primary hover:underline"
+        >
           Juan Alvarez
         </Link>
 
-        <ul className="hidden lg:flex gap-10 ml-6">
+        <ul className="ml-10 hidden gap-10 lg:flex">
           {Object.entries(links).map(([name, href]) => (
             <LinkItem
               key={name}
@@ -43,7 +47,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden ml-auto lg:flex items-center h-fit">
+        <div className="ml-auto hidden h-fit items-center lg:flex">
           <ThemeSwitcher />
         </div>
 
@@ -57,7 +61,7 @@ export default function Navbar() {
           <PopoverContent align="end">
             <ul
               onClickCapture={() => setMenuOpen((p) => !p)}
-              className="mb-6 flex flex-col gap-2 items-start"
+              className="mb-6 flex flex-col items-start gap-2"
             >
               {Object.entries(links).map(([name, href]) => (
                 <LinkItem
@@ -94,7 +98,7 @@ function LinkItem({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={clsx(
-          "group font-semibold hover:text-blue-500 transition-colors block",
+          "hover:text-primary/80 group block font-semibold transition-colors",
           isActive && "text-primary",
         )}
         href={href}
@@ -102,9 +106,16 @@ function LinkItem({
         <span className="relative">
           {name}
 
-          {(isActive || isHovered) && (
-            <figure className="absolute bottom-0 w-full h-[2px] bg-primary left-0 animate-grow group-hover:bg-blue-500 transition-colors" />
-          )}
+          <AnimatePresence>
+            {(isActive || isHovered) && (
+              <motion.figure
+                className="group-hover:bg-primary/80 absolute bottom-0 left-0 h-[2px] w-full bg-primary transition-colors"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                exit={{ width: 0 }}
+              />
+            )}
+          </AnimatePresence>
         </span>
       </Link>
     </li>
