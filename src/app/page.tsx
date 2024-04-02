@@ -5,7 +5,14 @@ import ProjectCard, {
   ProjectTitle,
 } from "@/components/project-card";
 import SocialmediaIcons from "@/components/socialmedia";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { getAllProjects } from "@/lib/projects.server";
+import { Crown } from "lucide-react";
 
 export default async function Home() {
   const projects = await getAllProjects();
@@ -50,6 +57,38 @@ export default async function Home() {
               footerChildren={<ProjectButton />}
               project={project}
             >
+              {project.slug === "heritage-keeper" && (
+                <TooltipProvider>
+                  <Tooltip delayDuration={0}>
+                    <TooltipTrigger>
+                      <span className="absolute -right-6 -top-4 flex rotate-2 items-center gap-1 rounded-full bg-amber-600 px-2 py-1 text-sm font-medium text-amber-200">
+                        <Crown size={16} /> 1st place
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      sideOffset={40}
+                      align="start"
+                      style={{
+                        width: "var(--radix-tooltip-trigger-width)",
+                      }}
+                    >
+                      <p className="text-sm">
+                        Heritage Keeper won 1st place at the{" "}
+                        <strong>2024 Codicon</strong> organized by{" "}
+                        <strong>Lexpin</strong>.{" "}
+                        <a
+                          target="_blank"
+                          href="https://lexpin.online/#/codicon/projects"
+                          className="underline hover:text-primary"
+                        >
+                          Click here for more details.
+                        </a>
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+
               <ProjectTitle />
               <ProjectDescription />
               <ProjectAnchors />

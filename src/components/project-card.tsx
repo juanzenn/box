@@ -43,7 +43,7 @@ export default function ProjectCard({
     <ProjectCardProvider project={project}>
       <article
         className={cn(
-          "flex flex-col gap-4 rounded-md border border-primary/20 bg-card p-4 transition-shadow duration-300",
+          "relative flex flex-col gap-4 rounded-md border border-primary/20 bg-card p-4 transition-shadow duration-300",
           "hover:shadow-md hover:shadow-primary/10",
         )}
       >
