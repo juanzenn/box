@@ -7,6 +7,11 @@ live: https://codicon24.juanalvarez.dev/
 source: https://github.com/juanzenn/codicon-24/
 ---
 
+<img
+  src="/images/heritage-keeper/thumbnail.png"
+  className="aspect-auto rounded-lg"
+/>
+
 # Feelings and Memories with Your Family
 
 Heritage Keeper is the project JAP Software presented in the Codicon 2024 edition, finalizing on the 17th March 2024. This event is a 48-hour hackathon. The teams compete, creating software based on just one word. This year's word was "Transmisión" (transmission in English).
@@ -34,9 +39,10 @@ One of the biggest problems we faced was choosing the right features. With limit
 ## The Auth
 
 As I mentioned, I also worked on the authentication and authorization. Making sensitive content private is extremely important in Heritage Keeper. You don't want your precious photos for everyone to see, do you? Thanks to next.js and next-auth, I secured the application on the server. It was handy for a few reasons:
-Easier to manage. The frontend only holds a cookie, and the decoding happens on the server, meaning you don't need the context API or Redux for the global user state. You only need to fetch the user on the server and send their info to the client with props.
-The user is everywhere. Next's Route Handlers (their version of API routes) is a server component. You can access your user IN THE API with just a function.
-Entire layouts and routes blocking. With just one top-level layout, we can block access to the dashboard to any client without a user. Forget about adding the same logic to all your pages.
+
+- **Easier to manage**. The frontend only holds a cookie, and the decoding happens on the server, meaning you don't need the context API or Redux for the global user state. You only need to fetch the user on the server and send their info to the client with props.
+- **The user is everywhere**. Next's Route Handlers (their version of API routes) is a server component. You can access your user IN THE API with just a function.
+- **Entire layouts and routes blocking**. With just one top-level layout, we can block access to the dashboard to any client without a user. Forget about adding the same logic to all your pages.
 
 ## The design
 

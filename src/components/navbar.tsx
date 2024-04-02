@@ -29,10 +29,7 @@ export default function Navbar() {
   return (
     <header className="mb-12 py-4">
       <nav className="container flex items-center">
-        <Link
-          href="/"
-          className="text-2xl font-black tracking-tight hover:text-primary hover:underline"
-        >
+        <Link href="/" className="text-2xl font-black tracking-tight">
           Juan Alvarez
         </Link>
 
