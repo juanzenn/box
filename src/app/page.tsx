@@ -18,14 +18,14 @@ export default async function Home() {
   const projects = await getAllProjects();
 
   return (
-    <main>
-      <section className="container flex">
+    <main className="pb-24">
+      <section className="container flex flex-col pb-24 lg:flex-row">
         <div>
-          <h1 className="mb-3 text-[64px] font-extrabold tracking-tight">
+          <h1 className="mb-3 text-2xl font-bold tracking-tight md:text-5xl">
             Fullstack Software Engineer
           </h1>
 
-          <p className="max-w-[85%] text-xl leading-relaxed">
+          <p className="mb-8 leading-relaxed md:text-lg lg:mb-0 lg:max-w-[85%]">
             Hey! <strong className="text-primary">I am Juan</strong>, an
             enthusiastic Fullstack Software Engineer. I focus on creating
             responsive and highly interactive web applications. As a self-taught
@@ -33,7 +33,7 @@ export default async function Home() {
             into them as an opportunity to learn.
           </p>
         </div>
-        <div className="ml-auto h-[300px] w-[300px] flex-shrink-0">
+        <div className="mx-auto ml-auto h-[300px] w-[300px] flex-shrink-0">
           <figure
             className="h-full w-full rounded-lg ring-4 ring-primary ring-offset-8 ring-offset-background"
             style={{
@@ -50,7 +50,7 @@ export default async function Home() {
       <section className="container">
         <h2 className="mb-8 text-4xl font-bold tracking-tight">My Work</h2>
 
-        <div className="grid grid-cols-3">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <ProjectCard
               key={project.slug}

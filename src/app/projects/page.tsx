@@ -16,7 +16,7 @@ export default async function ProjectsPage() {
       <section className="container">
         <h2 className="mb-8 text-4xl font-bold tracking-tight">My Work</h2>
 
-        <div className="grid grid-cols-3">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => {
             return (
               <ProjectCard
