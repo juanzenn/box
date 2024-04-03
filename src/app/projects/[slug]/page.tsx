@@ -1,4 +1,5 @@
 import { PROJECTS_PATH } from "@/constants";
+import { getAllProjects } from "@/lib/projects.server";
 import fs from "fs";
 import grayMatter from "gray-matter";
 import { Radio, SquareArrowOutUpRight } from "lucide-react";
@@ -46,6 +47,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </main>
     );
   } catch (error) {
+    console.log(error);
     notFound();
   }
+}
+
+export async function generateStaticParams() {
+  const projects = await getAllProjects();
+
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
 }
